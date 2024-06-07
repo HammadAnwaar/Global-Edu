@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "405595924893",
+    "project_id": "globel-edu",
+    "storage_bucket": "globel-edu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405595924893:android:b47e01a00c65dcaa88a774",
+        "android_client_info": {
+          "package_name": "com.example.globel_edu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUp-MeIrJR42lGMHrxd8nIf60-2-k201Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

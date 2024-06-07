@@ -1,0 +1,40 @@
+buildscript {
+    ext.kotlin_version = '1.9.22' // Use the latest version
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.3.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.4.2' // Add Google Services plugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = '../build'
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+// Apply the Google Services plugin for Firebase
+apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:31.0.0') // Use the latest version
+    implementation 'com.google.firebase:firebase-analytics' // Add Firebase Analytics dependency
+    // Add other Firebase dependencies as needed
+}
