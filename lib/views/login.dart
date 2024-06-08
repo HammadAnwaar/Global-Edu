@@ -3,11 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:globel_edu/my_colors.dart';
-import 'package:globel_edu/views/home.dart';
+import 'package:globel_edu/views/dashboard.dart';
 import 'package:globel_edu/views/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
   SharedPreferences? pref;
   bool? newUser;
+  bool hide = true;
   final globalKey = GlobalKey<FormState>();
 
   @override
@@ -85,11 +84,21 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: const InputDecoration(
-                              suffixIcon: Icon(Icons.key),
+                          obscureText: hide,
+                          decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hide = !hide;
+                                  });
+                                },
+                                icon: hide
+                                    ? const Icon(Icons.visibility)
+                                    : const Icon(Icons.visibility_off),
+                              ),
                               hintText: "Enter your passsword",
                               counterText: '',
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(12)))),
                           maxLength: 15,
@@ -129,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (_) =>
-                                                      const HomePage())));
+                                                      const Dashboard())));
                                   pref?.setString(
                                       "email", emailController.text);
                                   pref?.setString(
@@ -222,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  Navigator.pushReplacement(
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>

@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:globel_edu/my_colors.dart';
-import 'package:globel_edu/views/home.dart';
+import 'package:globel_edu/views/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
@@ -300,6 +300,8 @@ class _SignupPageState extends State<SignupPage> {
                         onPressed: () async {
                           if (globalKey.currentState!.validate()) {
                             try {
+                              _saveDataFireStore();
+                              addDataInPref();
                               setLogin();
                               final userCredential = await FirebaseAuth.instance
                                   .createUserWithEmailAndPassword(
@@ -308,7 +310,7 @@ class _SignupPageState extends State<SignupPage> {
                                   .then((value) => Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => const HomePage())));
+                                          builder: (_) => const Dashboard())));
                               pref?.setString("email", emailController.text);
                               pref?.setString("password", emailController.text);
                             } catch (e) {
@@ -344,6 +346,35 @@ class _SignupPageState extends State<SignupPage> {
             ),
           )),
     );
+  }
+
+  Future<void> _saveDataFireStore() async {
+    final user = FirebaseAuth.instance.currentUser;
+    String? userEmail = user != null ? user.email : emailController.text;
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('users');
+    try {
+      await userCollection.doc(userEmail).set({
+        'firstName': firstNameC.text,
+        'lastName': lastNameC.text,
+        'email': userEmail!.toLowerCase(),
+        'phone': numberController.text,
+        'gender': numberController.text,
+        'password': passwordController.text,
+      });
+      print('User information and contacts saved successfully.');
+    } catch (e) {
+      print('Error saving user information and contacts: $e');
+    }
+  }
+
+  Future<void> addDataInPref() async {
+    pref = await SharedPreferences.getInstance();
+    pref?.setString("name", firstNameC.text);
+    pref?.setString("phone", lastNameC.text);
+    pref?.setString("email", emailController.text);
+    pref?.setString("guardian", numberController.text);
+    pref?.setString("password", passwordController.text);
   }
 
   Future<void> setLogin() async {
