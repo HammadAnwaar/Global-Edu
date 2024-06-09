@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:globel_edu/my_colors.dart';
-import 'package:globel_edu/views/main_pages/home.dart';
-import 'package:globel_edu/views/main_pages/profile.dart';
-import 'package:globel_edu/views/main_pages/search.dart';
-import 'package:globel_edu/views/main_pages/wishlist.dart';
+import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/main_pages/home.dart';
+import 'package:global_edu/views/main_pages/profile.dart';
+import 'package:global_edu/views/main_pages/search.dart';
+import 'package:global_edu/views/main_pages/wishlist.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -31,7 +31,7 @@ class _DashboardState extends State<Dashboard> {
           type: BottomNavigationBarType.fixed,
           selectedItemColor: MyColors.black,
           backgroundColor: Colors.transparent,
-          unselectedItemColor: MyColors.backgroundColor,
+          unselectedItemColor: MyColors.lblack,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),

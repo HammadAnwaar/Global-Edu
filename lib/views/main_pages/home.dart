@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:globel_edu/my_colors.dart';
-import 'package:globel_edu/views/home_pages/universities.dart';
+import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/home_pages/universities.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

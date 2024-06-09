@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:globel_edu/my_colors.dart';
-import 'package:globel_edu/views/dashboard.dart';
-import 'package:globel_edu/views/signup.dart';
+import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/dashboard.dart';
+import 'package:global_edu/views/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {

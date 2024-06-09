@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:globel_edu/my_colors.dart';
+import 'package:global_edu/my_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UniversitiesPage extends StatefulWidget {

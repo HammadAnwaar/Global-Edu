@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:globel_edu/my_colors.dart';
+import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/splash_screen.dart';
+import 'package:global_edu/views/login.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +19,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String? name;
+  String? firstname;
+  String? lastname;
+  String? fullname;
   String? phone;
   String? email;
   File? _image;
@@ -49,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
       if (snapshot.exists) {
         setState(() {
-          name = userData['name'] ?? '';
+          firstname = userData['name'] ?? '';
           email = userData['email'] ?? '';
           phone = userData['phone'] ?? '';
         });
@@ -64,9 +68,11 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> getInfo() async {
     var pref = await SharedPreferences.getInstance();
     setState(() {
-      name = pref.getString("name");
-      phone = pref.getString("phone");
-      email = pref.getString("email");
+      firstname = pref.getString('firstname');
+      lastname = pref.getString('lastname');
+      fullname = firstname! + lastname!;
+      phone = pref.getString('phone');
+      email = pref.getString('email');
     });
   }
 
@@ -96,17 +102,17 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  // Future<void> clearData() async {
-  //   var pref = await SharedPreferences.getInstance();
-  //   pref.clear();
-  // }
+  Future<void> clearData() async {
+    var pref = await SharedPreferences.getInstance();
+    pref.clear();
+  }
 
-  // void signOut() {
-  //   clearData();
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   auth.signOut().then((value) => Navigator.pushReplacement(
-  //       context, MaterialPageRoute(builder: (_) => const SplashScreen())));
-  // }
+  void signOut() {
+    clearData();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut().then((value) => Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => const SplashScreen())));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             Text(
-              "$name",
+              "$fullname",
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -197,6 +203,29 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColors.appColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          12), // Adjust the value as needed
+                    ),
+                  ),
+                  onPressed: () {
+                    signOut();
+                  },
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(color: MyColors.white),
+                  ),
+                ),
               ),
             ),
           ],

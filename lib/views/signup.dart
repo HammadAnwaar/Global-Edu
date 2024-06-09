@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:globel_edu/my_colors.dart';
-import 'package:globel_edu/views/dashboard.dart';
+import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
@@ -258,12 +258,47 @@ class _SignupPageState extends State<SignupPage> {
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12)))),
-                      controller: passwordController,
+                      controller: numberController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter your number.";
                         } else if (value.length < 11) {
                           return "Please enter a valid number.";
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Enter your phone number",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: MyColors.black),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      cursorColor: MyColors.black,
+                      maxLength: 16,
+                      decoration: InputDecoration(
+                          hintText: "Password...",
+                          counterText: '',
+                          fillColor: MyColors.backgroundColor,
+                          filled: true,
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)))),
+                      controller: passwordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter your password.";
+                        } else if (value.length < 6) {
+                          return "Password must be atleast 6 to 12 chracters.";
                         }
                         return null;
                       },
@@ -291,41 +326,49 @@ class _SignupPageState extends State<SignupPage> {
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: MyColors.black,
+                          backgroundColor:
+                              _isChecked ? MyColors.black : MyColors.lblack,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 12), // Adjust the value as needed
                           ),
                         ),
-                        onPressed: () async {
-                          if (globalKey.currentState!.validate()) {
-                            try {
-                              _saveDataFireStore();
-                              addDataInPref();
-                              setLogin();
-                              final userCredential = await FirebaseAuth.instance
-                                  .createUserWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((value) => Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const Dashboard())));
-                              pref?.setString("email", emailController.text);
-                              pref?.setString("password", emailController.text);
-                            } catch (e) {
-                              Fluttertoast.showToast(
-                                msg: 'Error: $e',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: MyColors.backgroundColor,
-                                textColor: MyColors.black,
-                                fontSize: 16.0,
-                              );
-                            }
-                          }
-                        },
+                        onPressed: _isChecked
+                            ? () async {
+                                if (globalKey.currentState!.validate()) {
+                                  try {
+                                    _saveDataFireStore();
+                                    addDataInPref();
+                                    setLogin();
+                                    final userCredential = await FirebaseAuth
+                                        .instance
+                                        .createUserWithEmailAndPassword(
+                                            email: emailController.text,
+                                            password: passwordController.text)
+                                        .then((value) =>
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        const Dashboard())));
+                                    pref?.setString(
+                                        "email", emailController.text);
+                                    pref?.setString(
+                                        "password", emailController.text);
+                                  } catch (e) {
+                                    Fluttertoast.showToast(
+                                      msg: 'Error: $e',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: MyColors.backgroundColor,
+                                      textColor: MyColors.black,
+                                      fontSize: 16.0,
+                                    );
+                                  }
+                                }
+                              }
+                            : () {},
                         child: Text(
                           "Create Account",
                           style: TextStyle(
@@ -370,11 +413,10 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<void> addDataInPref() async {
     pref = await SharedPreferences.getInstance();
-    pref?.setString("name", firstNameC.text);
-    pref?.setString("phone", lastNameC.text);
-    pref?.setString("email", emailController.text);
-    pref?.setString("guardian", numberController.text);
-    pref?.setString("password", passwordController.text);
+    pref?.setString('firstname', firstNameC.text);
+    pref?.setString('lastname', lastNameC.text);
+    pref?.setString('phone', numberController.text);
+    pref?.setString('email', emailController.text);
   }
 
   Future<void> setLogin() async {
