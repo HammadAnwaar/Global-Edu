@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/splash_screen.dart';
-import 'package:global_edu/views/login.dart';
+import 'package:global_edu/views/main_pages/edit_profile.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String? fullname;
   String? phone;
   String? email;
+  String? nationality;
+  String? gender;
   File? _image;
   late SharedPreferences? pref;
 
@@ -53,9 +55,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
       if (snapshot.exists) {
         setState(() {
-          firstname = userData['name'] ?? '';
+          firstname = userData['firstName'] ?? '';
+          lastname = userData['lastName'] ?? '';
+          fullname = firstname! + lastname!;
           email = userData['email'] ?? '';
           phone = userData['phone'] ?? '';
+          nationality = userData['nationality'] ?? '';
+          gender = userData['gender'] ?? '';
         });
       } else {
         print('User data not found');
@@ -73,6 +79,8 @@ class _ProfilePageState extends State<ProfilePage> {
       fullname = firstname! + lastname!;
       phone = pref.getString('phone');
       email = pref.getString('email');
+      nationality = pref.getString('nationality');
+      gender = pref.getString('gender');
     });
   }
 
@@ -120,6 +128,25 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Center(
         child: Column(
           children: [
+            Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStatePropertyAll(MyColors.black)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const EditProfile()));
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        color: MyColors.white,
+                      )),
+                )),
             const SizedBox(
               height: 80,
             ),
@@ -127,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onTap: getImage,
               child: CircleAvatar(
                 backgroundColor: MyColors.appColor,
-                radius: 50,
+                radius: 60,
                 backgroundImage: _image != null ? FileImage(_image!) : null,
                 child: _image == null
                     ? SizedBox(
@@ -196,6 +223,34 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ],
                             ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Nationality: ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "$nationality",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Gender: ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "$gender",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -205,9 +260,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            SizedBox(
+            Container(
+              height: 50,
               width: double.infinity,
-              height: 55,
+              margin: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
               child: Padding(
                 padding: const EdgeInsets.only(right: 16),
                 child: ElevatedButton(

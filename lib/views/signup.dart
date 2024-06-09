@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, unused_local_variable, non_constant_identifier_names, use_build_context_synchronously, empty_catches
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,6 @@ class _SignupPageState extends State<SignupPage> {
   bool _isChecked = false;
   SharedPreferences? pref;
   int _selectedRadio = 0;
-  bool? newUser;
   final globalKey = GlobalKey<FormState>();
 
   @override
@@ -117,7 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                         if (value == null || value.isEmpty) {
                           return "Please enter your name.";
                         } else if (value.length < 4) {
-                          return "Name must contains 4 to 16 chracters.";
+                          return "Name must contains 4 to 16 characters.";
                         }
                         return null;
                       },
@@ -140,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                         if (value == null || value.isEmpty) {
                           return "Please enter your name.";
                         } else if (value.length < 4) {
-                          return "Name must contains 4 to 16 chracters.";
+                          return "Name must contains 4 to 16 characters.";
                         }
                         return null;
                       },
@@ -160,9 +157,10 @@ class _SignupPageState extends State<SignupPage> {
                       controller: emailController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Please enter your name.";
-                        } else if (value.length < 8) {
-                          return "Name must contains 8 to chracters.";
+                          return "Please enter your email.";
+                        } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                            .hasMatch(value)) {
+                          return "Please enter a valid email.";
                         }
                         return null;
                       },
@@ -226,9 +224,9 @@ class _SignupPageState extends State<SignupPage> {
                       controller: nationalController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Please enter your name.";
+                          return "Please enter your nationality.";
                         } else if (value.length < 4) {
-                          return "Name must contains 4 to 16 chracters.";
+                          return "Nationality must contain 4 to 16 characters.";
                         }
                         return null;
                       },
@@ -272,7 +270,7 @@ class _SignupPageState extends State<SignupPage> {
                       height: 10,
                     ),
                     Text(
-                      "Enter your phone number",
+                      "Enter your password",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -298,7 +296,7 @@ class _SignupPageState extends State<SignupPage> {
                         if (value == null || value.isEmpty) {
                           return "Please enter your password.";
                         } else if (value.length < 6) {
-                          return "Password must be atleast 6 to 12 chracters.";
+                          return "Password must be at least 6 to 12 characters.";
                         }
                         return null;
                       },
@@ -340,21 +338,22 @@ class _SignupPageState extends State<SignupPage> {
                                     _saveDataFireStore();
                                     addDataInPref();
                                     setLogin();
-                                    final userCredential = await FirebaseAuth
-                                        .instance
+                                    await FirebaseAuth.instance
                                         .createUserWithEmailAndPassword(
-                                            email: emailController.text,
-                                            password: passwordController.text)
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        )
                                         .then((value) =>
                                             Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        const Dashboard())));
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const Dashboard()),
+                                            ));
                                     pref?.setString(
                                         "email", emailController.text);
                                     pref?.setString(
-                                        "password", emailController.text);
+                                        "password", passwordController.text);
                                   } catch (e) {
                                     Fluttertoast.showToast(
                                       msg: 'Error: $e',
@@ -396,13 +395,15 @@ class _SignupPageState extends State<SignupPage> {
     String? userEmail = user != null ? user.email : emailController.text;
     final CollectionReference userCollection =
         FirebaseFirestore.instance.collection('users');
+    String gender = _selectedRadio == 0 ? 'Male' : 'Female';
     try {
       await userCollection.doc(userEmail).set({
         'firstName': firstNameC.text,
         'lastName': lastNameC.text,
         'email': userEmail!.toLowerCase(),
         'phone': numberController.text,
-        'gender': numberController.text,
+        'gender': gender,
+        'nationality': nationalController.text,
         'password': passwordController.text,
       });
       print('User information and contacts saved successfully.');
@@ -413,10 +414,13 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<void> addDataInPref() async {
     pref = await SharedPreferences.getInstance();
+    String gender = _selectedRadio == 0 ? 'Male' : 'Female';
     pref?.setString('firstname', firstNameC.text);
     pref?.setString('lastname', lastNameC.text);
+    pref?.setString('nationality', nationalController.text);
     pref?.setString('phone', numberController.text);
     pref?.setString('email', emailController.text);
+    pref?.setString('gender', gender.toString());
   }
 
   Future<void> setLogin() async {

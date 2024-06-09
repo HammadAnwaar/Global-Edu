@@ -1,12 +1,6 @@
 // ignore_for_file: avoid_print, unrelated_type_equality_checks, deprecated_member_use, unused_element
 
-import 'dart:convert';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

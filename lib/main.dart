@@ -4,19 +4,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/splash_screen.dart';
-import 'package:global_edu/views/dashboard.dart';
-import 'package:global_edu/views/home_pages/universities.dart';
-import 'package:global_edu/views/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Platform.isAndroid
       ? await Firebase.initializeApp(
           options: const FirebaseOptions(
-              apiKey: 'AIzaSyBUp-MeIrJR42lGMHrxd8nIf60-2-k201Q',
-              appId: '1:405595924893:android:b47e01a00c65dcaa88a774',
-              messagingSenderId: '405595924893',
-              projectId: 'global-edu'))
+              apiKey: 'AIzaSyDlilmM3QBxFsJLF1erhMKj6WSr2FXUQ7E',
+              appId: '1:232413993843:android:52a7c6f7620c65ad1e4306',
+              messagingSenderId: '232413993843',
+              projectId: 'global-edu-aabb3'))
       : await Firebase.initializeApp();
   runApp(const MyApp());
 }
