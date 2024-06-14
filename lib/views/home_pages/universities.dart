@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/home_pages/uni_doc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UniversitiesPage extends StatefulWidget {
@@ -12,13 +13,6 @@ class UniversitiesPage extends StatefulWidget {
 }
 
 class _UniversitiesPageState extends State<UniversitiesPage> {
-  String locationName = "";
-  SharedPreferences? pref;
-  bool loading = false;
-  late bool serviceEnabled;
-  String? number;
-  String? token;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +35,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
 
   Widget buildStartUp(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(
+      const Text(
         "Feature Universities.",
         style: TextStyle(
           color: MyColors.black,
@@ -72,7 +66,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
       const SizedBox(
         height: 12,
       ),
-      Text(
+      const Text(
         "Programs.",
         style: TextStyle(
             color: MyColors.black, fontWeight: FontWeight.bold, fontSize: 18),
@@ -112,7 +106,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                       const SizedBox(
                         height: 4,
                       ),
-                      Text(
+                      const Text(
                         "Engneering",
                         style: TextStyle(
                             color: MyColors.black, fontWeight: FontWeight.w500),
@@ -147,7 +141,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                       const SizedBox(
                         height: 4,
                       ),
-                      Text(
+                      const Text(
                         "Medical",
                         style: TextStyle(
                             color: MyColors.black, fontWeight: FontWeight.w500),
@@ -183,7 +177,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                       const SizedBox(
                         height: 4,
                       ),
-                      Text(
+                      const Text(
                         "Engneering",
                         style: TextStyle(
                             color: MyColors.black, fontWeight: FontWeight.w500),
@@ -219,7 +213,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                       const SizedBox(
                         height: 4,
                       ),
-                      Text(
+                      const Text(
                         "Engneering",
                         style: TextStyle(
                             color: MyColors.black, fontWeight: FontWeight.w500),
@@ -251,7 +245,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                     const SizedBox(
                       height: 4,
                     ),
-                    Text(
+                    const Text(
                       "Engneering",
                       style: TextStyle(
                           color: MyColors.black, fontWeight: FontWeight.w500),
@@ -264,7 +258,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
       const SizedBox(
         height: 12,
       ),
-      Text(
+      const Text(
         "My Progress.",
         style: TextStyle(
             color: MyColors.black, fontWeight: FontWeight.bold, fontSize: 18),
@@ -293,12 +287,12 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                 ),
               ),
             ),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Introduction to \nPsychology.",
                     style: TextStyle(
@@ -308,16 +302,16 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Michale",
                     style: TextStyle(color: MyColors.lblack, fontSize: 16),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 50,
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     "50% completed",
@@ -360,7 +354,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
               ),
             ),
             onPressed: () {},
-            child: Text(
+            child: const Text(
               "View All",
               style: TextStyle(color: MyColors.white),
             ),
@@ -373,14 +367,18 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
   Widget buildUniCard(BuildContext context, String title, String time,
       String rating, String image, String avatar) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const UniDocPage()));
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: MediaQuery.of(context).size.width / 1.25,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: MyColors.backgroundColor,
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
+              borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,7 +420,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 22),
                   child: Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: MyColors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
@@ -454,11 +452,11 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: TextButton(
-                            style: ButtonStyle(
+                            style: const ButtonStyle(
                                 backgroundColor:
                                     WidgetStatePropertyAll(MyColors.appColor)),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "enroll now",
                               style: TextStyle(color: MyColors.white),
                             )),

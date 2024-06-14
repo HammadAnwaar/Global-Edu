@@ -17,10 +17,10 @@ class _WishlistPageState extends State<WishlistPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14),
+                padding: EdgeInsets.symmetric(vertical: 14),
                 child: Text(
                   "Apni Scholarship",
                   textAlign: TextAlign.center,
@@ -44,7 +44,7 @@ class _WishlistPageState extends State<WishlistPage> {
             const SizedBox(
               height: 12,
             ),
-            SizedBox(
+            const SizedBox(
               width: double.infinity,
               child: Text(
                 "Scholarship",
@@ -55,7 +55,7 @@ class _WishlistPageState extends State<WishlistPage> {
                     color: MyColors.red),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: double.infinity,
               child: Text(
                 "Program",
@@ -69,7 +69,7 @@ class _WishlistPageState extends State<WishlistPage> {
             const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Introduction.",
               style: TextStyle(
                   color: MyColors.black,
@@ -84,7 +84,7 @@ class _WishlistPageState extends State<WishlistPage> {
             const SizedBox(
               height: 12,
             ),
-            Text(
+            const Text(
               "Requirements.",
               style: TextStyle(
                   color: MyColors.black,
@@ -93,7 +93,7 @@ class _WishlistPageState extends State<WishlistPage> {
             ),
             const Text(
                 "Scholarship eligibility typically hinges on a combination of academic achievements, such as maintaining a specific GPA, and personal accomplishments, including leadership roles and community service. Applicants may also need to demonstrate financial need, submit recommendation letters, and write essays outlining their goals and qualifications."),
-            Text(
+            const Text(
               "Duration.",
               style: TextStyle(
                   color: MyColors.black,
@@ -102,7 +102,7 @@ class _WishlistPageState extends State<WishlistPage> {
             ),
             const Text(
                 "Scholarship durations can vary, typically covering one academic year, but many extend over multiple years or until the completion of a degree program. Renewal may require maintaining certain academic standards and fulfilling specific criteria set by the scholarship provider."),
-            Text(
+            const Text(
               "Facilities.",
               style: TextStyle(
                   color: MyColors.black,
@@ -128,7 +128,7 @@ class _WishlistPageState extends State<WishlistPage> {
                     ),
                   ),
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     "Apply Now",
                     style: TextStyle(color: MyColors.white),
                   ),

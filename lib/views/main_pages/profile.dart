@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,13 +26,14 @@ class _ProfilePageState extends State<ProfilePage> {
   String? gender;
   File? _image;
   late SharedPreferences? pref;
+  bool isLoading = true;
 
   @override
   void initState() {
+    super.initState();
     _loadFirestoreInformation();
     getInfo();
     _getImageFromLocalStorage();
-    super.initState();
   }
 
   Future<void> _loadFirestoreInformation() async {
@@ -62,12 +61,19 @@ class _ProfilePageState extends State<ProfilePage> {
           phone = userData['phone'] ?? '';
           nationality = userData['nationality'] ?? '';
           gender = userData['gender'] ?? '';
+          isLoading = false; // Set loading to false when data is fetched
         });
       } else {
         print('User data not found');
+        setState(() {
+          isLoading = false;
+        });
       }
     } catch (e) {
       print('Error loading user data: $e');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -81,6 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
       email = pref.getString('email');
       nationality = pref.getString('nationality');
       gender = pref.getString('gender');
+      isLoading = false; // Set loading to false when data is fetched
     });
   }
 
@@ -124,169 +131,181 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [
-            Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStatePropertyAll(MyColors.black)),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const EditProfile()));
-                      },
-                      child: Icon(
-                        Icons.edit,
-                        color: MyColors.white,
-                      )),
-                )),
-            const SizedBox(
-              height: 80,
-            ),
-            GestureDetector(
-              onTap: getImage,
-              child: CircleAvatar(
-                backgroundColor: MyColors.appColor,
-                radius: 60,
-                backgroundImage: _image != null ? FileImage(_image!) : null,
-                child: _image == null
-                    ? SizedBox(
-                        width: 40,
-                        child: Text(
-                          "Tap to select Image",
-                          style: TextStyle(fontSize: 12, color: MyColors.white),
-                        ))
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "$fullname",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              height: 280,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                  color: MyColors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  border: Border.all(color: MyColors.black, width: 2)),
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : SingleChildScrollView(
+            child: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    children: [
-                      Expanded(child: Container()),
-                      SizedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(MyColors.black)),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const EditProfile()));
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              color: MyColors.white,
+                            )),
+                      )),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  GestureDetector(
+                    onTap: getImage,
+                    child: CircleAvatar(
+                      backgroundColor: MyColors.appColor,
+                      radius: 60,
+                      backgroundImage:
+                          _image != null ? FileImage(_image!) : null,
+                      child: _image == null
+                          ? SizedBox(
+                              width: 40,
+                              child: Text(
+                                "Tap to select Image",
+                                style: TextStyle(
+                                    fontSize: 12, color: MyColors.white),
+                              ))
+                          : null,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "$fullname",
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 280,
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: MyColors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                        border: Border.all(color: MyColors.black, width: 2)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                const Text(
-                                  "Email: ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "$email",
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                            Expanded(child: Container()),
+                            SizedBox(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        "Email: ",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "$email",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        "Phone: ",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "$phone",
+                                        style:
+                                            const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        "Nationality: ",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "$nationality",
+                                        style:
+                                            const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        "Gender: ",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "$gender",
+                                        style:
+                                            const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                const Text(
-                                  "Phone: ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "$phone",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text(
-                                  "Nationality: ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "$nationality",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text(
-                                  "Gender: ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "$gender",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
+                            Expanded(child: Container()),
                           ],
                         ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 28, vertical: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColors.appColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                12), // Adjust the value as needed
+                          ),
+                        ),
+                        onPressed: () {
+                          signOut();
+                        },
+                        child: Text(
+                          "Logout",
+                          style: TextStyle(color: MyColors.white),
+                        ),
                       ),
-                      Expanded(child: Container()),
-                    ],
+                    ),
                   ),
                 ],
               ),
             ),
-            Container(
-              height: 50,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: MyColors.appColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          12), // Adjust the value as needed
-                    ),
-                  ),
-                  onPressed: () {
-                    signOut();
-                  },
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(color: MyColors.white),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

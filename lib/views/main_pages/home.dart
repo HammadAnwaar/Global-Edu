@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/home_pages/location.dart';
 import 'package:global_edu/views/home_pages/universities.dart';
+import 'package:global_edu/views/main_pages/chat.dart';
+import 'package:global_edu/views/main_pages/uni_details.dart';
+import 'package:global_edu/views/main_pages/video_page.dart';
+import 'package:video_player/video_player.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -95,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 4,
                             ),
-                            Text(
+                            const Text(
                               "Universities",
                               style: TextStyle(
                                   color: MyColors.black,
@@ -108,175 +113,218 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 22,
                     ),
-                    Container(
-                      height: 180,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: MyColors.lightColor,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: MyColors.black, width: 1),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Image.asset(
-                                    "assets/icons/budget_filter.png"),
-                              )),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "Budget Filter",
-                            style: TextStyle(
-                                color: MyColors.black,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const VideoScreen()));
+                      },
+                      child: Container(
+                        height: 180,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            color: MyColors.lightColor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: MyColors.black, width: 1),
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Image.asset(
+                                      "assets/icons/budget_filter.png"),
+                                )),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              "Budget Filter",
+                              style: TextStyle(
+                                  color: MyColors.black,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 22,
                     ),
-                    Container(
-                      height: 180,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: MyColors.lightColor,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: MyColors.black, width: 1),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Image.asset("assets/icons/location.png"),
-                              )),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "Location",
-                            style: TextStyle(
-                                color: MyColors.black,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const Location()));
+                      },
+                      child: Container(
+                        height: 180,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            color: MyColors.lightColor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: MyColors.black, width: 1),
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child:
+                                      Image.asset("assets/icons/location.png"),
+                                )),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              "Location",
+                              style: TextStyle(
+                                  color: MyColors.black,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
                 Column(
                   children: [
-                    Container(
-                      height: 180,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: MyColors.lightColor,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: MyColors.black, width: 1),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Image.asset("assets/icons/degrees.png"),
-                              )),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "Degrees",
-                            style: TextStyle(
-                                color: MyColors.black,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const ChatPage()));
+                      },
+                      child: Container(
+                        height: 180,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            color: MyColors.lightColor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: MyColors.black, width: 1),
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child:
+                                      Image.asset("assets/icons/degrees.png"),
+                                )),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              "Degrees",
+                              style: TextStyle(
+                                  color: MyColors.black,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 22,
                     ),
-                    Container(
-                      height: 180,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: MyColors.lightColor,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: MyColors.black, width: 1),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Image.asset("assets/icons/programs.png"),
-                              )),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "Programs",
-                            style: TextStyle(
-                                color: MyColors.black,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const UniDetails()));
+                      },
+                      child: Container(
+                        height: 180,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            color: MyColors.lightColor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: MyColors.black, width: 1),
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child:
+                                      Image.asset("assets/icons/programs.png"),
+                                )),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              "Programs",
+                              style: TextStyle(
+                                  color: MyColors.black,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 22,
                     ),
-                    Container(
-                      height: 180,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: MyColors.lightColor,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: MyColors.black, width: 1),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child:
-                                    Image.asset("assets/icons/scholarship.png"),
-                              )),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "Scholarships",
-                            style: TextStyle(
-                                color: MyColors.black,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const UniversitiesPage()));
+                      },
+                      child: Container(
+                        height: 180,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            color: MyColors.lightColor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: MyColors.black, width: 1),
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Image.asset(
+                                      "assets/icons/scholarship.png"),
+                                )),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              "Scholarships",
+                              style: TextStyle(
+                                  color: MyColors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
