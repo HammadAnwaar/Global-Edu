@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/main_pages/video_page.dart';
 
 class UniDetails extends StatefulWidget {
   const UniDetails({super.key});
@@ -93,7 +94,12 @@ class _UniDetailsState extends State<UniDetails> {
                               12), // Adjust the value as needed
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const VideoScreen()));
+                      },
                       child: const Text(
                         "Apply Now",
                         style: TextStyle(color: MyColors.white),
