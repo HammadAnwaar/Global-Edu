@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/views/home_pages/uni_doc.dart';
+import 'package:global_edu/views/main_pages/uni_details.dart';
 
 class UniversitiesPage extends StatefulWidget {
   const UniversitiesPage({super.key});
@@ -52,6 +53,12 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
               GestureDetector(
                 onTap: () {
                   AppConstants.uniName = "ItCourses";
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const UniDetails(),
+                    ),
+                  );
                 },
                 child: buildUniCard(context, "IT Courses", "2:30", "9.5",
                     "assets/images/it.jpeg", "avatar"),

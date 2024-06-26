@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/main_pages/chat.dart';
 import 'package:global_edu/views/main_pages/video_page.dart';
 
 class UniDetails extends StatefulWidget {
@@ -98,7 +99,7 @@ class _UniDetailsState extends State<UniDetails> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => const VideoScreen()));
+                                builder: (_) => const ChatPage()));
                       },
                       child: const Text(
                         "Apply Now",
