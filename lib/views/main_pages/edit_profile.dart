@@ -67,262 +67,302 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColors.white,
         appBar: AppBar(
-          backgroundColor: MyColors.black,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: MyColors.white,
-              )),
-          title: Text(
-            "Edit Profile",
+          automaticallyImplyLeading: false,
+          backgroundColor: MyColors.white,
+          title: const Text(
+            "Profile",
             style: TextStyle(
-              color: MyColors.white,
-            ),
+                color: MyColors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  style: const ButtonStyle(
+                      backgroundColor:
+                          WidgetStatePropertyAll(MyColors.backgroundColor)),
+                  onPressed: () {
+                    fnController.text = "";
+                    lnController.text = "";
+                    phoneController.text = "";
+                    nationalController.text = "";
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "cancel",
+                    style: TextStyle(color: MyColors.black),
+                  )),
+            )
+          ],
         ),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 80,
-              ),
-              GestureDetector(
-                onTap: getImage,
-                child: CircleAvatar(
-                  backgroundColor: MyColors.black,
-                  radius: 50,
-                  backgroundImage: _image != null ? FileImage(_image!) : null,
-                  child: _image == null
-                      ? SizedBox(
-                          width: 40,
-                          child: Text(
-                            "Tap to select Image",
-                            style:
-                                TextStyle(fontSize: 12, color: MyColors.white),
-                          ))
-                      : null,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Form(
-                key: globalKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              // Expanded(child: Container()),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  GestureDetector(
+                    onTap: getImage,
+                    child: CircleAvatar(
+                      backgroundColor: MyColors.black,
+                      radius: 60,
+                      backgroundImage:
+                          _image != null ? FileImage(_image!) : null,
+                      child: _image == null
+                          ? const SizedBox(
+                              width: 40,
+                              child: Text(
+                                "Tap to select Image",
+                                style: TextStyle(
+                                    fontSize: 12, color: MyColors.white),
+                              ))
+                          : null,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Change profile image",
+                    style: TextStyle(
+                        color: MyColors.black, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Form(
+                    key: globalKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        const SizedBox(height: 20),
+                        const Text(
+                          "First Name",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
                         SizedBox(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 20),
-                              SizedBox(
-                                height: 70,
-                                width: 250,
-                                child: TextFormField(
-                                  keyboardType: TextInputType.name,
-                                  obscureText: false,
-                                  cursorColor: MyColors.black,
-                                  controller: fnController,
-                                  style: TextStyle(
-                                    color: MyColors.black,
-                                    fontSize: 16,
-                                  ),
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    fillColor: MyColors.backgroundColor,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    hintText: "FirstName...",
-                                    hintStyle: TextStyle(color: MyColors.black),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your name';
-                                    }
-                                    return null;
-                                  },
-                                ),
+                          height: 70,
+                          width: width / 1.4,
+                          child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            obscureText: false,
+                            cursorColor: MyColors.black,
+                            controller: fnController,
+                            style: const TextStyle(
+                              color: MyColors.black,
+                              fontSize: 16,
+                            ),
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              fillColor: MyColors.backgroundColor,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              // hintText: "FirstName...",
+                              hintStyle: TextStyle(color: MyColors.black),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
                               ),
-                              SizedBox(
-                                height: 70,
-                                width: 250,
-                                child: TextFormField(
-                                  keyboardType: TextInputType.name,
-                                  obscureText: false,
-                                  cursorColor: MyColors.black,
-                                  controller: lnController,
-                                  style: TextStyle(
-                                    color: MyColors.black,
-                                    fontSize: 16,
-                                  ),
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    fillColor: MyColors.backgroundColor,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    hintText: "LastName...",
-                                    hintStyle: TextStyle(color: MyColors.black),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your name';
-                                    }
-                                    return null;
-                                  },
-                                ),
+                              filled: true,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                width: 250,
-                                height: 70,
-                                child: TextFormField(
-                                  maxLength: 11,
-                                  keyboardType: TextInputType.number,
-                                  obscureText: false,
-                                  cursorColor: MyColors.black,
-                                  controller: phoneController,
-                                  style: TextStyle(
-                                    color: MyColors.black,
-                                    fontSize: 16,
-                                  ),
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    fillColor: MyColors.backgroundColor,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    hintText: "Phone...",
-                                    hintStyle: TextStyle(color: MyColors.black),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty || value.length == 1) {
-                                      return 'Please Enter your Phone Number';
-                                    }
-                                    if (value.length != 11) {
-                                      return 'Phone number must be 11 digits';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                width: 250,
-                                height: 70,
-                                child: TextFormField(
-                                  obscureText: false,
-                                  cursorColor: MyColors.black,
-                                  controller: nationalController,
-                                  style: TextStyle(
-                                    color: MyColors.black,
-                                    fontSize: 16,
-                                  ),
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    fillColor: MyColors.backgroundColor,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    hintText: "Nationality...",
-                                    hintStyle: TextStyle(color: MyColors.black),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: MyColors.black),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty || value.length == 1) {
-                                      return 'Please Enter your Nationality';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your name';
+                              }
+                              return null;
+                            },
                           ),
                         ),
+                        const Text(
+                          "Last Name",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        SizedBox(
+                          height: 70,
+                          width: width / 1.4,
+                          child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            obscureText: false,
+                            cursorColor: MyColors.black,
+                            controller: lnController,
+                            style: const TextStyle(
+                              color: MyColors.black,
+                              fontSize: 16,
+                            ),
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              fillColor: MyColors.backgroundColor,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              // hintText: "LastName...",
+                              hintStyle: TextStyle(color: MyColors.black),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                              filled: true,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your name';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const Text(
+                          "Phone",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        SizedBox(
+                          width: width / 1.4,
+                          height: 70,
+                          child: TextFormField(
+                            maxLength: 11,
+                            keyboardType: TextInputType.number,
+                            obscureText: false,
+                            cursorColor: MyColors.black,
+                            controller: phoneController,
+                            style: const TextStyle(
+                              color: MyColors.black,
+                              fontSize: 16,
+                            ),
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              fillColor: MyColors.backgroundColor,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              // hintText: "Phone...",
+                              hintStyle: TextStyle(color: MyColors.black),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                              filled: true,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty || value.length == 1) {
+                                return 'Please Enter your Phone Number';
+                              }
+                              if (value.length != 11) {
+                                return 'Phone number must be 11 digits';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          "Nationality",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        SizedBox(
+                          width: width / 1.4,
+                          height: 70,
+                          child: TextFormField(
+                            obscureText: false,
+                            cursorColor: MyColors.black,
+                            controller: nationalController,
+                            style: const TextStyle(
+                              color: MyColors.black,
+                              fontSize: 16,
+                            ),
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              fillColor: MyColors.backgroundColor,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              // hintText: "Nationality...",
+                              hintStyle: TextStyle(color: MyColors.black),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                              filled: true,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: MyColors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty || value.length == 1) {
+                                return 'Please Enter your Nationality';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                            style: const ButtonStyle(
+                                backgroundColor:
+                                    WidgetStatePropertyAll(MyColors.black)),
+                            onPressed: () {
+                              if (globalKey.currentState!.validate()) {
+                                _saveDataFireStore();
+                                addDataInPref();
+                              }
+                            },
+                            child: const Text("Save changes",
+                                style: TextStyle(
+                                    color: MyColors.white,
+                                    fontWeight: FontWeight.bold)))
                       ],
                     ),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                WidgetStatePropertyAll(MyColors.black)),
-                        onPressed: () {
-                          if (globalKey.currentState!.validate()) {
-                            _saveDataFireStore();
-                            addDataInPref();
-                          }
-                        },
-                        child: Text("Save",
-                            style: TextStyle(
-                                color: MyColors.white,
-                                fontWeight: FontWeight.bold)))
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

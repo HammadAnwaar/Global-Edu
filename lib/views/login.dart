@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Sign in to your account",
                           style: TextStyle(
                             color: MyColors.black,
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               }
                             },
-                            child: Text(
+                            child: const Text(
                               "Sign In",
                               style: TextStyle(
                                   color: MyColors.white,
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: double.infinity,
                           child: Text(
                             "or",
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                                       borderRadius: BorderRadius.circular(12)),
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text(
+                                    child: const Text(
                                       "Google",
                                       style: TextStyle(
                                           fontSize: 16, color: MyColors.black),
@@ -208,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                                       borderRadius: BorderRadius.circular(12)),
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text(
+                                    child: const Text(
                                       "Facebook",
                                       style: TextStyle(
                                           fontSize: 16, color: MyColors.black),
@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Don't have an Account? ",
                                 style: TextStyle(color: MyColors.lblack),
                               ),
@@ -237,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                                           builder: (context) =>
                                               const SignupPage()));
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Signup here",
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,

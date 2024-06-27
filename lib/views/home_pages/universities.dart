@@ -56,7 +56,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const UniDetails(),
+                      builder: (_) => const UniDocPage(),
                     ),
                   );
                 },

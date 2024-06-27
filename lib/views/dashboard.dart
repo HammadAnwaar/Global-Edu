@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
   final pages = [
     const HomePage(),
     const SearchPage(),
-    const WishlistPage(),
+    const WishListPage(),
     const ProfilePage(),
   ];
   @override
