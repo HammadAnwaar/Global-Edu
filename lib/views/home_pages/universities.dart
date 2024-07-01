@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/home_pages/location.dart';
 import 'package:global_edu/views/home_pages/uni_doc.dart';
-import 'package:global_edu/views/main_pages/uni_details.dart';
+import 'package:global_edu/views/home_pages/uni_list.dart';
 
 class UniversitiesPage extends StatefulWidget {
   const UniversitiesPage({super.key});
@@ -52,27 +53,41 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
             children: [
               GestureDetector(
                 onTap: () {
-                  AppConstants.uniName = "ItCourses";
+                  AppConstants.subjName = "It Cources";
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const UniDocPage(),
+                      builder: (_) => const Location(),
                     ),
                   );
                 },
-                child: buildUniCard(context, "IT Courses", "2:30", "9.5",
-                    "assets/images/it.jpeg", "avatar"),
+                child: buildUniCard(context, "IT Cources", "2:30", "9.5",
+                    "assets/images/it.jpeg"),
               ),
               const SizedBox(
                 width: 8,
               ),
-              buildUniCard(context, "Flutter", "4:47", "7.8",
-                  "assets/images/flutter.png", "avatar"),
+              GestureDetector(
+                onTap: () {
+                  AppConstants.subjName = "Flutter";
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Location()));
+                },
+                child: buildUniCard(context, "Flutter", "4:47", "7.8",
+                    "assets/images/flutter.png"),
+              ),
               const SizedBox(
                 width: 8,
               ),
-              buildUniCard(context, "Computer Science", "2:30", "4.0",
-                  "assets/images/computer.jpeg", "avatar"),
+              GestureDetector(
+                onTap: () {
+                  AppConstants.subjName = "ComputerScience";
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Location()));
+                },
+                child: buildUniCard(context, "Computer Science", "2:30", "4.0",
+                    "assets/images/computer.jpeg"),
+              ),
             ],
           )),
       const SizedBox(
@@ -91,178 +106,179 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: MyColors.black, width: 1),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child:
-                                    Image.asset("assets/icons/engineer.png")),
-                          )),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      const Text(
-                        "Engneering",
-                        style: TextStyle(
-                            color: MyColors.black, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: MyColors.black, width: 1),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: Image.asset("assets/icons/medical.png")),
-                          )),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      const Text(
-                        "Medical",
-                        style: TextStyle(
-                            color: MyColors.black, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: MyColors.black, width: 1),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child:
-                                    Image.asset("assets/icons/engineer.png")),
-                          )),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      const Text(
-                        "Engneering",
-                        style: TextStyle(
-                            color: MyColors.black, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: MyColors.backgroundColor,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: MyColors.black, width: 1),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child:
-                                    Image.asset("assets/icons/engineer.png")),
-                          )),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      const Text(
-                        "Engneering",
-                        style: TextStyle(
-                            color: MyColors.black, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: MyColors.backgroundColor,
-                    borderRadius: BorderRadius.circular(16)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: MyColors.black, width: 1),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: SizedBox(
-                              height: 40,
-                              width: 40,
-                              child: Image.asset("assets/icons/engineer.png")),
-                        )),
-                    const SizedBox(
-                      height: 4,
+              GestureDetector(
+                onTap: () {
+                  AppConstants.subjName = "CS";
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Location()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: MyColors.black, width: 1),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: Image.asset("assets/icons/ic_cs.png")),
+                            )),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const Text(
+                          "CS",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
                     ),
-                    const Text(
-                      "Engneering",
-                      style: TextStyle(
-                          color: MyColors.black, fontWeight: FontWeight.w500),
-                    )
-                  ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  AppConstants.subjName = "Engineering";
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Location()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: MyColors.black, width: 1),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child:
+                                      Image.asset("assets/icons/engineer.png")),
+                            )),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const Text(
+                          "Engineering",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  AppConstants.subjName = "Medical";
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Location()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: MyColors.black, width: 1),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child:
+                                      Image.asset("assets/icons/medical.png")),
+                            )),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const Text(
+                          "Medical",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  AppConstants.subjName = "Arts";
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Location()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: MyColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: MyColors.black, width: 1),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child:
+                                      Image.asset("assets/icons/ic_arts.png")),
+                            )),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const Text(
+                          "Arts",
+                          style: TextStyle(
+                              color: MyColors.black,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -377,7 +393,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
   }
 
   Widget buildUniCard(BuildContext context, String title, String time,
-      String rating, String image, String avatar) {
+      String rating, String image) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

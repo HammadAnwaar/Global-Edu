@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/refine.dart';
+import 'package:global_edu/views/home_pages/high_uni.dart';
+import 'package:global_edu/views/home_pages/more_uni.dart';
+import 'package:global_edu/views/home_pages/open_uni.dart';
+import 'package:global_edu/views/home_pages/uni_list.dart';
 
 class Location extends StatefulWidget {
   const Location({super.key});
@@ -22,7 +25,7 @@ class _LocationState extends State<Location> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Scholarship near you"),
+        title: const Text("Universities near you"),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: SizedBox(
@@ -30,10 +33,10 @@ class _LocationState extends State<Location> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildTab('Refine', 0, const Icon(Icons.filter_alt)),
+                _buildTab('All', 0, null),
                 _buildTab('Open', 1, null),
                 _buildTab('Highly', 2, null),
-                _buildTab('Latest', 3, null),
+                _buildTab('More', 3, null),
               ],
             ),
           ),
@@ -41,11 +44,11 @@ class _LocationState extends State<Location> {
       ),
       body: IndexedStack(
         index: _selectedIndex,
-        children: [
-          const RefinePage(),
-          _buildTabContent('Open Content', 1),
-          _buildTabContent('Highly Content', 2),
-          _buildTabContent('Latest Content', 3),
+        children: const [
+          UniList(),
+          OpenUni(),
+          HighUni(),
+          MoreUni(),
         ],
       ),
     );

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/views/main_pages/video_page.dart';
 
 class UniDocPage extends StatefulWidget {
-  const UniDocPage({super.key});
+  final String docId;
+  const UniDocPage({super.key, required this.docId});
 
   @override
   State<UniDocPage> createState() => _UniDocPageState();
@@ -12,48 +14,50 @@ class UniDocPage extends StatefulWidget {
 
 class _UniDocPageState extends State<UniDocPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final String docName = AppConstants.subjName;
 
-  Future<DocumentSnapshot> _fetchUniversityData() async {
-    return await _firestore.collection('universities').doc('uniname').get();
+  Future<Map<String, dynamic>> _fetchUniversityData() async {
+    try {
+      DocumentSnapshot docSnapshot = await _firestore
+          .collection('universities')
+          .doc('uni_types')
+          .collection(docName)
+          .doc(widget.docId)
+          .get();
+      return docSnapshot.data() as Map<String, dynamic>;
+    } catch (e) {
+      print('Error fetching data: $e');
+      return {};
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: FutureBuilder<DocumentSnapshot>(
+        body: FutureBuilder<Map<String, dynamic>>(
           future: _fetchUniversityData(),
-          builder:
-              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            }
-
-            if (snapshot.hasError) {
-              return const Center(child: Text("Error fetching data"));
-            }
-
-            if (!snapshot.hasData || !snapshot.data!.exists) {
-              return const Center(child: Text("No data available"));
-            }
-
-            Map<String, dynamic> data =
-                snapshot.data!.data() as Map<String, dynamic>;
-
-            return SingleChildScrollView(
-              child: Padding(
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No data found'));
+            } else {
+              Map<String, dynamic> data = snapshot.data!;
+              return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: ListView(
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         child: Text(
-                          "Apni University",
+                          "${widget.docId} University",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: MyColors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
@@ -63,41 +67,32 @@ class _UniDocPageState extends State<UniDocPage> {
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                          height: 80,
-                          width: 80,
-                          child: Image.asset(
-                            "assets/images/university.png",
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        "University",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: MyColors.red),
+                        height: 80,
+                        width: 80,
+                        child: Image.asset(
+                          "assets/images/university.png",
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        "Program",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w500,
-                            color: MyColors.blue),
-                      ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      "University",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: MyColors.red),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    const Text(
+                      "Program",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w500,
+                          color: MyColors.blue),
                     ),
+                    const SizedBox(height: 20),
                     const Text(
                       "Introduction.",
                       style: TextStyle(
@@ -105,13 +100,9 @@ class _UniDocPageState extends State<UniDocPage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(data['introduction']),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    const SizedBox(height: 8),
+                    Text(data['introduction'] ?? 'N/A'),
+                    const SizedBox(height: 12),
                     const Text(
                       "Requirements.",
                       style: TextStyle(
@@ -119,7 +110,9 @@ class _UniDocPageState extends State<UniDocPage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
-                    Text(data['requirements']),
+                    const SizedBox(height: 8),
+                    Text(data['requirements'] ?? 'N/A'),
+                    const SizedBox(height: 12),
                     const Text(
                       "Duration.",
                       style: TextStyle(
@@ -127,7 +120,9 @@ class _UniDocPageState extends State<UniDocPage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
-                    Text(data['duration']),
+                    const SizedBox(height: 8),
+                    Text(data['duration'] ?? 'N/A'),
+                    const SizedBox(height: 12),
                     const Text(
                       "Facilities.",
                       style: TextStyle(
@@ -135,10 +130,9 @@ class _UniDocPageState extends State<UniDocPage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
-                    Text(data['facilities']),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    const SizedBox(height: 8),
+                    Text(data['facilities'] ?? 'N/A'),
+                    const SizedBox(height: 12),
                     SizedBox(
                       width: double.infinity,
                       height: 55,
@@ -164,13 +158,11 @@ class _UniDocPageState extends State<UniDocPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 12,
-                    )
+                    const SizedBox(height: 20),
                   ],
                 ),
-              ),
-            );
+              );
+            }
           },
         ),
       ),

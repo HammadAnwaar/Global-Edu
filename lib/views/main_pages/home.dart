@@ -1,8 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/views/home_pages/location.dart';
 import 'package:global_edu/views/home_pages/universities.dart';
