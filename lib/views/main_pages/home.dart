@@ -25,7 +25,10 @@ class _HomePageState extends State<HomePage> {
     Home(
       name: 'Degrees',
       img: 'assets/icons/degrees.png',
-      page: const VideoScreen(),
+      page: "Degrees",
+      // const VideoScreen(
+      //   url: '',
+      // ),
     ),
     Home(
       name: 'Budget Filter',

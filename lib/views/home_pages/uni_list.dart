@@ -65,7 +65,7 @@ class _UniListState extends State<UniList> {
                   );
                 },
                 child: _buildScholarshipContainer(
-                  imagePath: "assets/images/app_logo.png",
+                  imagePath: data['image'].toString(),
                   title: data['title'] ?? 'Unknown Title',
                   subtitle: data['subtitle'] ?? 'Unknown Subtitle',
                   details: data['details'] ?? 'Unknown Details',
@@ -107,10 +107,21 @@ class _UniListState extends State<UniList> {
                 height: 100,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
-                  ),
+                  child: imagePath.isNotEmpty
+                      ? Image.network(
+                          imagePath,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              "assets/images/university.png",
+                              fit: BoxFit.fill,
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          "assets/images/university.png",
+                          fit: BoxFit.fill,
+                        ),
                 ),
               ),
               const SizedBox(width: 8),

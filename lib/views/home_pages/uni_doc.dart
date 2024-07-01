@@ -35,6 +35,25 @@ class _UniDocPageState extends State<UniDocPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: MyColors.blue,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: MyColors.white,
+            ),
+          ),
+          title: Text(
+            widget.docId,
+            style: const TextStyle(
+                color: MyColors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
+          ),
+        ),
         body: FutureBuilder<Map<String, dynamic>>(
           future: _fetchUniversityData(),
           builder: (context, snapshot) {
@@ -47,35 +66,10 @@ class _UniDocPageState extends State<UniDocPage> {
             } else {
               Map<String, dynamic> data = snapshot.data!;
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
                 child: ListView(
                   children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        child: Text(
-                          "${widget.docId} University",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: MyColors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        height: 80,
-                        width: 80,
-                        child: Image.asset(
-                          "assets/images/university.png",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
                     const Text(
                       "University",
                       textAlign: TextAlign.center,
@@ -88,10 +82,29 @@ class _UniDocPageState extends State<UniDocPage> {
                       "Program",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 28,
+                          fontSize: 22,
                           fontWeight: FontWeight.w500,
                           color: MyColors.blue),
                     ),
+                    const SizedBox(height: 20),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Card(
+                          elevation: 8,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Image.network(
+                              data['image'],
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  "assets/images/university.png",
+                                  fit: BoxFit.fill,
+                                );
+                              },
+                            ),
+                          ),
+                        )),
                     const SizedBox(height: 20),
                     const Text(
                       "Introduction.",
@@ -140,7 +153,7 @@ class _UniDocPageState extends State<UniDocPage> {
                         padding: const EdgeInsets.only(right: 16),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: MyColors.appColor,
+                            backgroundColor: MyColors.blue,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -149,7 +162,9 @@ class _UniDocPageState extends State<UniDocPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const VideoScreen()));
+                                    builder: (_) => VideoScreen(
+                                          url: data['video'],
+                                        )));
                           },
                           child: const Text(
                             "Apply Now",

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/home_pages/uni_doc.dart';
 
 class OpenUni extends StatefulWidget {
   const OpenUni({super.key});
@@ -15,22 +16,31 @@ class _OpenUniState extends State<OpenUni> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String docName = AppConstants.subjName;
 
-  Future<List<Map<String, dynamic>>> _fetchUniversityData() async {
-    QuerySnapshot querySnapshot = await _firestore
-        .collection('universities')
-        .doc('uni_types')
-        .collection(docName)
-        .where('open', isEqualTo: true)
-        .get();
-    return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
+  Future<List<Map<String, dynamic>>> _fetchUniversities() async {
+    try {
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('universities')
+          .doc('uni_types')
+          .collection(docName)
+          .where('open', isEqualTo: true)
+          .get();
+
+      return querySnapshot.docs.map((doc) {
+        return {
+          'docId': doc.id,
+          'data': doc.data(),
+        };
+      }).toList();
+    } catch (e) {
+      print('Error fetching universities: $e');
+      return [];
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Map<String, dynamic>>>(
-      future: _fetchUniversityData(),
+      future: _fetchUniversities(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -39,19 +49,32 @@ class _OpenUniState extends State<OpenUni> {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text('No data found'));
         } else {
-          List<Map<String, dynamic>> scholarships = snapshot.data!;
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: scholarships
-                .map((scholarship) => _buildScholarshipContainer(
-                      imagePath: "assets/images/app_logo.png",
-                      title: scholarship['title'] ?? 'Unknown Title',
-                      subtitle: scholarship['subtitle'] ?? 'Unknown Subtitle',
-                      details: scholarship['details'] ?? 'Unknown Details',
-                      actionText: "Apply Now",
-                      score: scholarship['score'] ?? 'N/A',
-                    ))
-                .toList(),
+          List<Map<String, dynamic>> universities = snapshot.data!;
+          return ListView.builder(
+            itemCount: universities.length,
+            itemBuilder: (context, index) {
+              String docId = universities[index]['docId'];
+              Map<String, dynamic> data = universities[index]['data'];
+              return GestureDetector(
+                onTap: () {
+                  AppConstants.uniName = data['title'] ?? 'Unknown University';
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UniDocPage(docId: docId),
+                    ),
+                  );
+                },
+                child: _buildScholarshipContainer(
+                  imagePath: data['image'].toString(),
+                  title: data['title'] ?? 'Unknown Title',
+                  subtitle: data['subtitle'] ?? 'Unknown Subtitle',
+                  details: data['details'] ?? 'Unknown Details',
+                  actionText: "Apply Now",
+                  score: data['score'] ?? 'N/A',
+                ),
+              );
+            },
           );
         }
       },
@@ -85,10 +108,21 @@ class _OpenUniState extends State<OpenUni> {
                 height: 100,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
-                  ),
+                  child: imagePath.isNotEmpty
+                      ? Image.network(
+                          imagePath,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              "assets/images/university.png",
+                              fit: BoxFit.fill,
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          "assets/images/university.png",
+                          fit: BoxFit.fill,
+                        ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -112,7 +146,7 @@ class _OpenUniState extends State<OpenUni> {
                     ),
                   ),
                   Text(
-                    "$details Universities",
+                    details,
                     style: const TextStyle(
                       color: MyColors.black,
                       fontSize: 14,
