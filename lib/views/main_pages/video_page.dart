@@ -291,6 +291,22 @@ class _VideoScreenState extends State<VideoScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: MyColors.blue,
+          title: const Text(
+            "Scholarships For you",
+            style: TextStyle(color: MyColors.white),
+          ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: MyColors.white,
+              )),
+        ),
         body: OrientationBuilder(
           builder: (context, orientation) {
             return Padding(
@@ -393,7 +409,9 @@ class _VideoScreenState extends State<VideoScreen> {
                         color: MyColors.black,
                       ),
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          
+                        });
                       },
                     ),
                   ],

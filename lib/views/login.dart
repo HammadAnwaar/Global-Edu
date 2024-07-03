@@ -7,7 +7,6 @@ import 'package:global_edu/views/dashboard.dart';
 import 'package:global_edu/views/signup.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -129,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (globalKey.currentState!.validate()) {
                               try {
                                 setLogin();
-                                final userCredential = await FirebaseAuth
+                                await FirebaseAuth
                                     .instance
                                     .signInWithEmailAndPassword(
                                         email: emailController.text,

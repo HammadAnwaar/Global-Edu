@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/high_uni.dart';
-import 'package:global_edu/views/home_pages/more_uni.dart';
-import 'package:global_edu/views/home_pages/open_uni.dart';
-import 'package:global_edu/views/home_pages/uni_list.dart';
+import 'package:global_edu/views/main_pages/high_price.dart';
+import 'package:global_edu/views/main_pages/scholar_list.dart';
 
-class Location extends StatefulWidget {
-  const Location({super.key});
+import '../main_pages/low_price.dart';
+
+class Scholarship extends StatefulWidget {
+  const Scholarship({super.key});
 
   @override
-  State<Location> createState() => _LocationState();
+  State<Scholarship> createState() => _ScholarshipState();
 }
 
-class _LocationState extends State<Location> {
+class _ScholarshipState extends State<Scholarship> {
   int _selectedIndex = 0;
 
   void _onTabSelected(int index) {
@@ -27,6 +27,10 @@ class _LocationState extends State<Location> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MyColors.blue,
+        title: const Text(
+          "Scholarships For you",
+          style: TextStyle(color: MyColors.white),
+        ),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -35,10 +39,6 @@ class _LocationState extends State<Location> {
               Icons.arrow_back,
               color: MyColors.white,
             )),
-        title: const Text(
-          "Universities near you",
-          style: TextStyle(color: MyColors.white),
-        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
@@ -49,9 +49,8 @@ class _LocationState extends State<Location> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildTab('All', 0, null),
-                  _buildTab('Open', 1, null),
-                  _buildTab('Highly', 2, null),
-                  _buildTab('More', 3, null),
+                  _buildTab('low price', 1, null),
+                  _buildTab('High price', 2, null),
                 ],
               ),
             ),
@@ -61,10 +60,9 @@ class _LocationState extends State<Location> {
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
-          UniList(),
-          OpenUni(),
-          HighUni(),
-          MoreUni(),
+          ScholarList(),
+          LowPrice(),
+          HighPrice(),
         ],
       ),
     );
