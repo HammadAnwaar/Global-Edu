@@ -2,16 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/uni_doc.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/degrees/degree_doc.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/universities/uni_doc.dart';
 
-class MoreUni extends StatefulWidget {
-  const MoreUni({super.key});
+class FourYearsDegree extends StatefulWidget {
+  const FourYearsDegree({super.key});
 
   @override
-  State<MoreUni> createState() => _MoreUniState();
+  State<FourYearsDegree> createState() => _FourYearsDegreeState();
 }
 
-class _MoreUniState extends State<MoreUni> {
+class _FourYearsDegreeState extends State<FourYearsDegree> {
   final String uniName = AppConstants.uniName;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String docName = AppConstants.subjName;
@@ -19,10 +20,8 @@ class _MoreUniState extends State<MoreUni> {
   Future<List<Map<String, dynamic>>> _fetchUniversities() async {
     try {
       QuerySnapshot querySnapshot = await _firestore
-          .collection('universities')
-          .doc('uni_types')
-          .collection(docName)
-          .where('details', isGreaterThan: '200')
+          .collection('degrees')
+          .where('duration', isEqualTo: '4 years')
           .get();
 
       return querySnapshot.docs.map((doc) {
@@ -61,7 +60,7 @@ class _MoreUniState extends State<MoreUni> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UniDocPage(docId: docId),
+                      builder: (context) => DegreeDocPage(docId: docId),
                     ),
                   );
                 },
@@ -69,7 +68,7 @@ class _MoreUniState extends State<MoreUni> {
                   imagePath: data['image'].toString(),
                   title: data['title'] ?? 'Unknown Title',
                   subtitle: data['subtitle'] ?? 'Unknown Subtitle',
-                  details: data['details'] ?? 'Unknown Details',
+                  details: data['duration'] ?? 'Unknown Details',
                   actionText: "Apply Now",
                   score: data['score'] ?? 'N/A',
                 ),

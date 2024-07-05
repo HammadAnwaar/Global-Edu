@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/uni_doc.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/universities/uni_doc.dart';
 
-class OpenUni extends StatefulWidget {
-  const OpenUni({super.key});
+class MoreUni extends StatefulWidget {
+  const MoreUni({super.key});
 
   @override
-  State<OpenUni> createState() => _OpenUniState();
+  State<MoreUni> createState() => _MoreUniState();
 }
 
-class _OpenUniState extends State<OpenUni> {
+class _MoreUniState extends State<MoreUni> {
   final String uniName = AppConstants.uniName;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String docName = AppConstants.subjName;
@@ -22,7 +22,7 @@ class _OpenUniState extends State<OpenUni> {
           .collection('universities')
           .doc('uni_types')
           .collection(docName)
-          .where('open', isEqualTo: true)
+          .where('details', isGreaterThan: '200')
           .get();
 
       return querySnapshot.docs.map((doc) {

@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/location.dart';
-import 'package:global_edu/views/home_pages/scholarship.dart';
-import 'package:global_edu/views/home_pages/universities.dart';
-import 'package:global_edu/views/main_pages/chat.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/location.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/scholarships/scholarship.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/universities/universities.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/chat.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/degrees/degrees.dart';
 import 'package:global_edu/views/main_pages/uni_details.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,14 +24,14 @@ class _HomePageState extends State<HomePage> {
       page: const UniversitiesPage(),
     ),
     Home(
-      name: 'Scholarships',
+      name: 'Degrees',
       img: 'assets/icons/degrees.png',
-      page: const Scholarship(),
+      page: const Degrees(),
     ),
     Home(
       name: 'Budget Filter',
       img: 'assets/icons/budget_filter.png',
-      page: const Location(),
+      page: const Scholarship(),
     ),
     Home(
       name: 'Programs',
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     Home(
       name: 'Scholarship',
       img: 'assets/icons/scholarship.png',
-      page: const Location(),
+      page: const Scholarship(),
     ),
   ];
   bool isTextEmpty = true;

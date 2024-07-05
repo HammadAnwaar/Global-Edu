@@ -4,9 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/splash_screen.dart';
-import 'package:global_edu/views/main_pages/chat.dart';
-import 'package:global_edu/views/main_pages/uni_details.dart';
-import 'package:global_edu/views/main_pages/video_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

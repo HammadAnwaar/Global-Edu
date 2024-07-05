@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/views/dashboard.dart';
-import 'package:global_edu/views/signup.dart';
+import 'package:global_edu/views/main_pages/auth/signup.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,9 +21,18 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   SharedPreferences? pref;
-  bool? newUser;
   bool hide = true;
   final globalKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSharedPreferences();
+  }
+
+  Future<void> _loadSharedPreferences() async {
+    pref = await SharedPreferences.getInstance();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.isEmpty) {
                             return "Please enter your email.";
                           } else if (!value.contains("@")) {
-                            return "Please enter valid email.";
+                            return "Please enter a valid email.";
                           }
                           return null;
                         },
@@ -96,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? const Icon(Icons.visibility)
                                 : const Icon(Icons.visibility_off),
                           ),
-                          hintText: "Enter your passsword",
+                          hintText: "Enter your password",
                           counterText: '',
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -106,9 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                         controller: passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Please enter your password";
+                            return "Please enter your password.";
                           } else if (value.length < 6) {
-                            return "password must be at least 6 digits";
+                            return "Password must be at least 6 characters.";
                           }
                           return null;
                         },
@@ -127,9 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             if (globalKey.currentState!.validate()) {
                               try {
-                                setLogin();
-                                await FirebaseAuth
-                                    .instance
+                                await setLogin();
+                                await FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
                                         email: emailController.text,
                                         password: passwordController.text)
@@ -138,9 +147,6 @@ class _LoginPageState extends State<LoginPage> {
                                         MaterialPageRoute(
                                             builder: (_) =>
                                                 const Dashboard())));
-                                pref?.setString("email", emailController.text);
-                                pref?.setString(
-                                    "password", emailController.text);
                               } catch (e) {
                                 Fluttertoast.showToast(
                                   msg: 'Error: $e',
@@ -204,8 +210,20 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: TextButton(
-                                onPressed: () {
-                                  // signInWithFacebook();
+                                onPressed: () async {
+                                  try {
+                                    final UserCredential userCredential =
+                                        await signInWithFacebook();
+                                    if (context.mounted) {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  const Dashboard()));
+                                    }
+                                  } catch (e) {
+                                    Fluttertoast.showToast(msg: "$e");
+                                  }
                                 },
                                 child: const Text(
                                   "Facebook",
@@ -266,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
       if (gUser == null) {
@@ -289,14 +307,12 @@ class _LoginPageState extends State<LoginPage> {
         idToken: gAuth.idToken,
       );
 
-      setLogin();
+      await setLogin();
       final userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
       final User? user = userCredential.user;
 
       if (user != null) {
-        // Print user email
-        print('User email: ${user.email}');
         Fluttertoast.showToast(
           msg: 'Google sign-in successful: ${user.email}',
           toastLength: Toast.LENGTH_SHORT,
@@ -307,13 +323,11 @@ class _LoginPageState extends State<LoginPage> {
           fontSize: 16.0,
         );
         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const Dashboard()),
-        );
+            context, MaterialPageRoute(builder: (_) => const Dashboard()));
       }
     } catch (e) {
       Fluttertoast.showToast(
-        msg: 'Error: $e',
+        msg: 'Google sign-in failed: $e',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -324,33 +338,23 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // signInWithFacebook() async {
-  //   final LoginResult result = await FacebookAuth.instance.login();
-
-  //   if (result.status == LoginStatus.success) {
-  //     final AccessToken? accessToken = result.accessToken;
-  //     final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(accessToken?.token);
-
-  //     setLogin();
-  //     return await FirebaseAuth.instance
-  //         .signInWithCredential(facebookAuthCredential)
-  //         .then((value) => Navigator.pushReplacement(
-  //             context, MaterialPageRoute(builder: (_) => const Dashboard())));
-  //   } else {
-  //     Fluttertoast.showToast(
-  //       msg: 'Facebook login failed: ${result.status}',
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.BOTTOM,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: MyColors.backgroundColor,
-  //       textColor: MyColors.black,
-  //       fontSize: 16.0,
-  //     );
-  //   }
-  // }
+  Future<UserCredential> signInWithFacebook() async {
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+      await setLogin();
+      return await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+    } catch (e) {
+      throw Exception('Facebook sign-in failed: $e');
+    }
+  }
 
   Future<void> setLogin() async {
-    var pref = await SharedPreferences.getInstance();
-    pref.setString('userType', 'user');
+    if (pref != null) {
+      pref!.setBool('isLogin', true);
+      pref!.setString('userType', 'user');
+    }
   }
 }

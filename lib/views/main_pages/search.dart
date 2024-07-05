@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/universities/universities.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -68,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             const Divider(),
             const SizedBox(height: 12),
-            Text(
+            const Text(
               "Popular Programs.",
               style: TextStyle(
                 color: MyColors.black,
@@ -88,7 +89,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Business Administration",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -102,7 +103,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Computer Science",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -122,7 +123,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Engineering",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -137,7 +138,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Psychology",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -151,7 +152,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Nursing",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -171,7 +172,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Education",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -185,7 +186,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Social Sciences",
                       style: TextStyle(fontSize: 14, color: MyColors.black),
                     ),
@@ -194,7 +195,7 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
             const SizedBox(height: 12),
-            Text(
+            const Text(
               "Program Categories.",
               style: TextStyle(
                 color: MyColors.black,
@@ -236,8 +237,13 @@ class _SearchPageState extends State<SearchPage> {
                           12), // Adjust the value as needed
                     ),
                   ),
-                  onPressed: () {},
-                  child: Text(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const UniversitiesPage()));
+                  },
+                  child: const Text(
                     "Find Universities",
                     style: TextStyle(color: MyColors.white),
                   ),

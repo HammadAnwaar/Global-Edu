@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/high_uni.dart';
-import 'package:global_edu/views/home_pages/more_uni.dart';
-import 'package:global_edu/views/home_pages/open_uni.dart';
-import 'package:global_edu/views/home_pages/uni_list.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/degrees/all_degrees.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/degrees/four_years.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/degrees/two_years.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/scholarships/high_price.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/scholarships/scholar_list.dart';
 
-class Location extends StatefulWidget {
-  const Location({super.key});
+import '../scholarships/low_price.dart';
+
+class Degrees extends StatefulWidget {
+  const Degrees({super.key});
 
   @override
-  State<Location> createState() => _LocationState();
+  State<Degrees> createState() => _DegreesState();
 }
 
-class _LocationState extends State<Location> {
+class _DegreesState extends State<Degrees> {
   int _selectedIndex = 0;
 
   void _onTabSelected(int index) {
@@ -27,6 +30,10 @@ class _LocationState extends State<Location> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MyColors.blue,
+        title: const Text(
+          "Degrees For you",
+          style: TextStyle(color: MyColors.white),
+        ),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -35,10 +42,6 @@ class _LocationState extends State<Location> {
               Icons.arrow_back,
               color: MyColors.white,
             )),
-        title: const Text(
-          "Universities near you",
-          style: TextStyle(color: MyColors.white),
-        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
@@ -49,9 +52,8 @@ class _LocationState extends State<Location> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildTab('All', 0, null),
-                  _buildTab('Open', 1, null),
-                  _buildTab('Highly', 2, null),
-                  _buildTab('More', 3, null),
+                  _buildTab('2 Years', 1, null),
+                  _buildTab('4 years', 2, null),
                 ],
               ),
             ),
@@ -61,10 +63,9 @@ class _LocationState extends State<Location> {
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
-          UniList(),
-          OpenUni(),
-          HighUni(),
-          MoreUni(),
+          AllDegrees(),
+          TwoYearsDegree(),
+          FourYearsDegree(),
         ],
       ),
     );

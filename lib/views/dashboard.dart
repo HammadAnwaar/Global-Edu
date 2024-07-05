@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/main_pages/home.dart';
-import 'package:global_edu/views/main_pages/profile.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/chat.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/home.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/profile/profile.dart';
 import 'package:global_edu/views/main_pages/search.dart';
 import 'package:global_edu/views/main_pages/wishlist.dart';
 
@@ -16,7 +17,7 @@ class _DashboardState extends State<Dashboard> {
   final pages = [
     const HomePage(),
     const SearchPage(),
-    const WishListPage(),
+    const ChatPage(),
     const ProfilePage(),
   ];
   @override

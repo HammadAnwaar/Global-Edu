@@ -2,24 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/scholar_doc.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/universities/uni_doc.dart';
 
-class ScholarList extends StatefulWidget {
-  const ScholarList({super.key});
+class LowPrice extends StatefulWidget {
+  const LowPrice({super.key});
 
   @override
-  State<ScholarList> createState() => _ScholarListState();
+  State<LowPrice> createState() => _LowPriceState();
 }
 
-class _ScholarListState extends State<ScholarList> {
+class _LowPriceState extends State<LowPrice> {
   final String uniName = AppConstants.uniName;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String docName = AppConstants.subjName;
 
   Future<List<Map<String, dynamic>>> _fetchUniversities() async {
     try {
-      QuerySnapshot querySnapshot =
-          await _firestore.collection('scholarships').get();
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('scholarships')
+          .where('fees', isLessThanOrEqualTo: '200')
+          .get();
 
       return querySnapshot.docs.map((doc) {
         return {
@@ -35,50 +37,45 @@ class _ScholarListState extends State<ScholarList> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: FutureBuilder<List<Map<String, dynamic>>>(
-          future: _fetchUniversities(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No data found'));
-            } else {
-              List<Map<String, dynamic>> universities = snapshot.data!;
-              return ListView.builder(
-                itemCount: universities.length,
-                itemBuilder: (context, index) {
-                  String docId = universities[index]['docId'];
-                  Map<String, dynamic> data = universities[index]['data'];
-                  return GestureDetector(
-                    onTap: () {
-                      AppConstants.uniName =
-                          data['title'] ?? 'Unknown University';
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ScholarDocPage(docId: docId),
-                        ),
-                      );
-                    },
-                    child: _buildScholarshipContainer(
-                      imagePath: data['image'].toString(),
-                      title: data['title'] ?? 'Unknown Title',
-                      subtitle: data['subtitle'] ?? 'Unknown Subtitle',
-                      details: data['fees'] ?? 'Unknown Details',
-                      actionText: "Apply Now",
-                      score: data['score'] ?? 'N/A',
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _fetchUniversities(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No data found'));
+        } else {
+          List<Map<String, dynamic>> universities = snapshot.data!;
+          return ListView.builder(
+            itemCount: universities.length,
+            itemBuilder: (context, index) {
+              String docId = universities[index]['docId'];
+              Map<String, dynamic> data = universities[index]['data'];
+              return GestureDetector(
+                onTap: () {
+                  AppConstants.uniName = data['title'] ?? 'Unknown University';
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UniDocPage(docId: docId),
                     ),
                   );
                 },
+                child: _buildScholarshipContainer(
+                  imagePath: data['image'].toString(),
+                  title: data['title'] ?? 'Unknown Title',
+                  subtitle: data['subtitle'] ?? 'Unknown Subtitle',
+                  details: data['fees'] ?? 'Unknown Details',
+                  actionText: "Apply Now",
+                  score: data['score'] ?? 'N/A',
+                ),
               );
-            }
-          },
-        ),
-      ),
+            },
+          );
+        }
+      },
     );
   }
 

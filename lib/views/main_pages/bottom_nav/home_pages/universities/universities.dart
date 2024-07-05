@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/location.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/location.dart';
 
 class UniversitiesPage extends StatefulWidget {
   const UniversitiesPage({super.key});

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/home_pages/uni_doc.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/universities/uni_doc.dart';
 
 class HighUni extends StatefulWidget {
   const HighUni({super.key});

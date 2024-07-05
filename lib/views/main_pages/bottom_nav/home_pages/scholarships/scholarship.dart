@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/main_pages/high_price.dart';
-import 'package:global_edu/views/main_pages/scholar_list.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/scholarships/high_price.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/home_pages/scholarships/scholar_list.dart';
 
-import '../main_pages/low_price.dart';
+import 'low_price.dart';
 
 class Scholarship extends StatefulWidget {
   const Scholarship({super.key});

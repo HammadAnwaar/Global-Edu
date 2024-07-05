@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/main_pages/chat.dart';
+import 'package:global_edu/views/main_pages/bottom_nav/chat.dart';
 
 class UniDetails extends StatefulWidget {
   const UniDetails({super.key});

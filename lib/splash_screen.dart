@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/views/dashboard.dart';
-import 'package:global_edu/views/login.dart';
+import 'package:global_edu/views/main_pages/auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
