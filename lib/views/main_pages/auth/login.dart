@@ -192,8 +192,8 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: TextButton(
-                                onPressed: () {
-                                  signInWithGoogle();
+                                onPressed: () async {
+                                  await signInWithGoogle();
                                 },
                                 child: const Text(
                                   "Google",
