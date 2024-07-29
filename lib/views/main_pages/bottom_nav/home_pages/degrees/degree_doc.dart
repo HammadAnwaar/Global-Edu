@@ -160,6 +160,7 @@ class _DegreeDocPageState extends State<DegreeDocPage> {
                                 MaterialPageRoute(
                                     builder: (_) => VideoScreen(
                                           url: data['video'],
+                                          uniLink: data['uniLink'],
                                         )));
                           },
                           child: const Text(

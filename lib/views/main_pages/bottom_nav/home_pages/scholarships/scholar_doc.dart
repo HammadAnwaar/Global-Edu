@@ -160,6 +160,7 @@ class _ScholarDocPageState extends State<ScholarDocPage> {
                                 MaterialPageRoute(
                                     builder: (_) => VideoScreen(
                                           url: data['video'],
+                                          uniLink: data['uniLink'],
                                         )));
                           },
                           child: const Text(

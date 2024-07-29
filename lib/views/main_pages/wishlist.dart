@@ -164,6 +164,7 @@ class _WishListPageState extends State<WishListPage> {
                                 MaterialPageRoute(
                                     builder: (_) => VideoScreen(
                                           url: data['video'],
+                                          uniLink: data['uniLink'],
                                         )));
                           },
                           child: const Text(

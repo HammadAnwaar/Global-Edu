@@ -164,6 +164,7 @@ class _UniDocPageState extends State<UniDocPage> {
                                 MaterialPageRoute(
                                     builder: (_) => VideoScreen(
                                           url: data['video'],
+                                          uniLink: data['uniLink'],
                                         )));
                           },
                           child: const Text(

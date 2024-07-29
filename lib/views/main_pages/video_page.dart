@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:global_edu/app_constants.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VideoScreen extends StatefulWidget {
   final String url;
+  final String uniLink;
 
-  const VideoScreen({super.key, required this.url});
+  const VideoScreen({super.key, required this.url, required this.uniLink});
 
   @override
   _VideoScreenState createState() => _VideoScreenState();
@@ -124,6 +126,34 @@ class _VideoScreenState extends State<VideoScreen> {
                     ),
                   ),
                   _buildPortraitControls(),
+                  Expanded(child: Container()),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColors.appColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                12), // Adjust the value as needed
+                          ),
+                        ),
+                        onPressed: () async {
+                          if (await canLaunch(widget.uniLink)) {
+                            await launch(widget.uniLink);
+                          } else {
+                            throw 'Could not launch ${widget.uniLink}';
+                          }
+                        },
+                        child: const Text(
+                          "Apply Now",
+                          style: TextStyle(color: MyColors.white),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
