@@ -49,6 +49,7 @@ flutter {
 
 // Add Firebase dependencies
 dependencies {
+    implementation 'com.facebook.android:facebook-login:latest.release'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-analytics")
