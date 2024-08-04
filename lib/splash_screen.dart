@@ -1,10 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:global_edu/login_option.dart';
 import 'package:global_edu/my_colors.dart';
-import 'package:global_edu/views/dashboard.dart';
-import 'package:global_edu/views/main_pages/auth/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,26 +12,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SharedPreferences? pref;
-  String? userType;
 
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 4), () async {
-      pref = await SharedPreferences.getInstance();
-      userType = pref!.getString('userType');
-      if (userType == null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const LoginPage()),
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const Dashboard()),
-        );
-      }
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const LoginOption()));
     });
   }
 
@@ -60,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
           const SizedBox(
             height: 15,
           ),
-          Text(
+          const Text(
             "Global Edu",
             style: TextStyle(
                 color: MyColors.black,
@@ -71,15 +56,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 decorationThickness: 2),
           ),
           Expanded(child: Container()),
-          Align(
+          const Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 horizontal: 38,
                 vertical: 20,
               ),
               child: LinearProgressIndicator(
-                borderRadius: const BorderRadius.all(
+                borderRadius: BorderRadius.all(
                   Radius.circular(12),
                 ),
                 color: MyColors.appColor,
@@ -90,4 +75,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-}
+  }
