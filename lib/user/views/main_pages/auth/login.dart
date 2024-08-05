@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:global_edu/admin/home.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/user/views/dashboard.dart';
 import 'package:global_edu/user/views/main_pages/auth/signup.dart';
@@ -137,16 +138,28 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             if (globalKey.currentState!.validate()) {
                               try {
-                                await setLogin();
-                                await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: emailController.text,
-                                        password: passwordController.text)
-                                    .then((value) => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                const Dashboard())));
+                                if (emailController.text ==
+                                        "Info.mustaghistech@gmail.com" &&
+                                    passwordController.text == "D<*dD84D") {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const AdminHome(),
+                                    ),
+                                  );
+                                } else {
+                                  await setLogin();
+                                  await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: emailController.text,
+                                          password: passwordController.text)
+                                      .then((value) =>
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      const Dashboard())));
+                                }
                               } catch (e) {
                                 Fluttertoast.showToast(
                                   msg: 'Error: $e',
@@ -212,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: TextButton(
                                 onPressed: () async {
                                   try {
-                                        await signInWithFacebook();
+                                    await signInWithFacebook();
                                     if (context.mounted) {
                                       Navigator.pushReplacement(
                                           context,

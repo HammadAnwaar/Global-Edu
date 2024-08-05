@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/login_option.dart';
 import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/user/views/dashboard.dart';
+import 'package:global_edu/user/views/main_pages/auth/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,13 +15,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SharedPreferences? pref;
+  String? userType;
 
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 4), () async {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const LoginOption()));
+      pref = await SharedPreferences.getInstance();
+                    userType = pref!.getString('userType');
+                    if (userType == null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginPage()),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const Dashboard()),
+                      );
+                    }
     });
   }
 
@@ -75,4 +91,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-  }
+}
