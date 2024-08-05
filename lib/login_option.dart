@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:global_edu/admin/home.dart';
+import 'package:global_edu/admin/admin_login.dart';
 import 'package:global_edu/my_colors.dart';
 import 'package:global_edu/user/views/dashboard.dart';
 import 'package:global_edu/user/views/main_pages/auth/login.dart';
@@ -38,7 +38,7 @@ class _LoginOptionState extends State<LoginOption> {
                   ),
                   onPressed: () async {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const AdminHome()));
+                        MaterialPageRoute(builder: (_) => AdminLogin()));
                   },
                   child: const Text(
                     "Login As Admin",

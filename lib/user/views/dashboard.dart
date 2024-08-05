@@ -4,7 +4,6 @@ import 'package:global_edu/user/views/main_pages/bottom_nav/chat.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/home.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/profile/profile.dart';
 import 'package:global_edu/user/views/main_pages/search.dart';
-import 'package:global_edu/user/views/main_pages/wishlist.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
