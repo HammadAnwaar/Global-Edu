@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/scholarships/scholarship.dart';
@@ -133,8 +135,10 @@ class _HomePageState extends State<HomePage> {
                       } else {
                         throw 'Could not launch $link';
                       }
+                    } else {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => item.page));
                     }
-                    // Add an optional else block if you want to handle clicks on other items
                   },
                   child: Container(
                     decoration: BoxDecoration(

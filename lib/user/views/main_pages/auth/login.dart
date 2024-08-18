@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:global_edu/admin/home.dart';
 import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/dashboard.dart';
+import 'package:global_edu/user/views/main_pages/auth/forgot_password.dart';
 import 'package:global_edu/user/views/main_pages/auth/signup.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -123,6 +124,31 @@ class _LoginPageState extends State<LoginPage> {
                           }
                           return null;
                         },
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 22, vertical: 12),
+                          child: GestureDetector(
+                            child: const Text(
+                              "Forgot Password ?",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: MyColors.appColor,
+                                  decorationThickness: 1,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  color: MyColors.appColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => ForgotPasswordScreen()));
+                            },
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 80),
                       SizedBox(
