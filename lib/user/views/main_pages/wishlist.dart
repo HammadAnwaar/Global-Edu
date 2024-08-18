@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:global_edu/app_constants.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/app_constants.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/main_pages/video_page.dart';
 
 class WishListPage extends StatefulWidget {

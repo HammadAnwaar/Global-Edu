@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/splash_screen.dart';
 
 Future<void> main() async {

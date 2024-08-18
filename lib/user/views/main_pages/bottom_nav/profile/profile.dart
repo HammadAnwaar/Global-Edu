@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/splash_screen.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/profile/edit_profile.dart';
 import 'package:image_picker/image_picker.dart';

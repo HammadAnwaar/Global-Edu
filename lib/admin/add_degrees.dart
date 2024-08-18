@@ -3,9 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:global_edu/auth_textfield.dart';
-import 'package:global_edu/my_button.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/auth_textfield.dart';
+import 'package:global_edu/constants/my_button.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

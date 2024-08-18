@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:global_edu/admin/add_degrees.dart';
 import 'package:global_edu/admin/add_scholar.dart';
 import 'package:global_edu/admin/add_uni.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});

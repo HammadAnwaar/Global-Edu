@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:global_edu/admin/home.dart';
-import 'package:global_edu/auth_textfield.dart';
-import 'package:global_edu/my_button.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/auth_textfield.dart';
+import 'package:global_edu/constants/my_button.dart';
+import 'package:global_edu/constants/my_colors.dart';
 
 class AdminLogin extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

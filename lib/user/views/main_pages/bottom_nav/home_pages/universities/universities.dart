@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print, unrelated_type_equality_checks, deprecated_member_use, unused_element
 
 import 'package:flutter/material.dart';
-import 'package:global_edu/app_constants.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/app_constants.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/location.dart';
 
 class UniversitiesPage extends StatefulWidget {
@@ -44,50 +44,18 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
         ),
       ),
       const SizedBox(height: 15),
-      SizedBox(
-          height: 280,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  AppConstants.subjName = "It Cources";
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const Location(),
-                    ),
-                  );
-                },
-                child: buildUniCard(context, "IT Cources", "2:30", "9.5",
-                    "assets/images/it.jpeg"),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              GestureDetector(
-                onTap: () {
-                  AppConstants.subjName = "Flutter";
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Location()));
-                },
-                child: buildUniCard(context, "Flutter", "4:47", "7.8",
-                    "assets/images/flutter.png"),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              GestureDetector(
-                onTap: () {
-                  AppConstants.subjName = "ComputerScience";
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Location()));
-                },
-                child: buildUniCard(context, "Computer Science", "2:30", "4.0",
-                    "assets/images/computer.jpeg"),
-              ),
-            ],
-          )),
+      Padding(
+        padding: const EdgeInsets.only(right: 16),
+        child: GestureDetector(
+          onTap: () {
+            AppConstants.subjName = "ComputerScience";
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => const Location()));
+          },
+          child: buildUniCard(
+              context, "Diploma", "2:30", "4.0", "assets/images/computer.jpeg"),
+        ),
+      ),
       const SizedBox(
         height: 12,
       ),
@@ -396,7 +364,7 @@ class _UniversitiesPageState extends State<UniversitiesPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: MediaQuery.of(context).size.width / 1.25,
+          width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             color: MyColors.backgroundColor,
             borderRadius: BorderRadius.all(Radius.circular(12)),

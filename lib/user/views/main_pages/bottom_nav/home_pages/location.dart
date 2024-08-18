@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/universities/high_uni.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/universities/more_uni.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/universities/open_uni.dart';

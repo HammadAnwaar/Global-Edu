@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_edu/admin/admin_login.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/dashboard.dart';
 import 'package:global_edu/user/views/main_pages/auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,11 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/scholarships/scholarship.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/universities/universities.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/chat.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/degrees/degrees.dart';
 import 'package:global_edu/user/views/main_pages/uni_details.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,13 +33,13 @@ class _HomePageState extends State<HomePage> {
       page: const Scholarship(),
     ),
     Home(
-      name: 'Programs',
-      img: 'assets/icons/programs.png',
+      name: 'Chat',
+      img: 'assets/icons/chat.png',
       page: const ChatPage(),
     ),
     Home(
-      name: 'Location',
-      img: 'assets/icons/location.png',
+      name: 'Ielts',
+      img: 'assets/icons/ic_ielts.png',
       page: const UniDetails(),
     ),
     Home(
@@ -124,13 +124,17 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext context, int index) {
                 final item = _filteredHlist[index];
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => item.page,
-                      ),
-                    );
+                  onTap: () async {
+                    String link =
+                        "https://youtube.com/playlist?list=PLfSUFKdFlttn1MWrG5Q0-a9Cbm9y3uulX&si=i-2o6sqOvfzgtQw7";
+                    if (item.name == 'Ielts') {
+                      if (await canLaunch(link)) {
+                        await launch(link);
+                      } else {
+                        throw 'Could not launch $link';
+                      }
+                    }
+                    // Add an optional else block if you want to handle clicks on other items
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -165,266 +169,6 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     Column(
-          //       children: [
-          //         GestureDetector(
-          //           onTap: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (_) => const UniversitiesPage()));
-          //           },
-          //           child: Container(
-          //             height: 180,
-          //             width: MediaQuery.of(context).size.width / 2.5,
-          //             decoration: BoxDecoration(
-          //                 color: MyColors.lightColor,
-          //                 borderRadius: BorderRadius.circular(16)),
-          //             child: Column(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Container(
-          //                     decoration: BoxDecoration(
-          //                         border: Border.all(
-          //                             color: MyColors.black, width: 1),
-          //                         borderRadius: BorderRadius.circular(16)),
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(10.0),
-          //                       child: Image.asset(
-          //                           "assets/icons/university.png"),
-          //                     )),
-          //                 const SizedBox(
-          //                   height: 4,
-          //                 ),
-          //                 const Text(
-          //                   "Universities",
-          //                   style: TextStyle(
-          //                       color: MyColors.black,
-          //                       fontWeight: FontWeight.w500),
-          //                 )
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-
-          //         const SizedBox(
-          //           height: 22,
-          //         ),
-          //         GestureDetector(
-          //           onTap: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (_) => const VideoScreen()));
-          //           },
-          //           child: Container(
-          //             height: 180,
-          //             width: MediaQuery.of(context).size.width / 2.5,
-          //             decoration: BoxDecoration(
-          //                 color: MyColors.lightColor,
-          //                 borderRadius: BorderRadius.circular(16)),
-          //             child: Column(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Container(
-          //                     decoration: BoxDecoration(
-          //                         border: Border.all(
-          //                             color: MyColors.black, width: 1),
-          //                         borderRadius: BorderRadius.circular(16)),
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(10.0),
-          //                       child: Image.asset(
-          //                           "assets/icons/budget_filter.png"),
-          //                     )),
-          //                 const SizedBox(
-          //                   height: 4,
-          //                 ),
-          //                 const Text(
-          //                   "Budget Filter",
-          //                   style: TextStyle(
-          //                       color: MyColors.black,
-          //                       fontWeight: FontWeight.w500),
-          //                 )
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         const SizedBox(
-          //           height: 22,
-          //         ),
-          //         GestureDetector(
-          //           onTap: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (_) => const Location()));
-          //           },
-          //           child: Container(
-          //             height: 180,
-          //             width: MediaQuery.of(context).size.width / 2.5,
-          //             decoration: BoxDecoration(
-          //                 color: MyColors.lightColor,
-          //                 borderRadius: BorderRadius.circular(16)),
-          //             child: Column(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Container(
-          //                     decoration: BoxDecoration(
-          //                         border: Border.all(
-          //                             color: MyColors.black, width: 1),
-          //                         borderRadius: BorderRadius.circular(16)),
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(10.0),
-          //                       child:
-          //                           Image.asset("assets/icons/location.png"),
-          //                     )),
-          //                 const SizedBox(
-          //                   height: 4,
-          //                 ),
-          //                 const Text(
-          //                   "Location",
-          //                   style: TextStyle(
-          //                       color: MyColors.black,
-          //                       fontWeight: FontWeight.w500),
-          //                 )
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //     Column(
-          //       children: [
-          //         GestureDetector(
-          //           onTap: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (_) => const ChatPage()));
-          //           },
-          //           child: Container(
-          //             height: 180,
-          //             width: MediaQuery.of(context).size.width / 2.5,
-          //             decoration: BoxDecoration(
-          //                 color: MyColors.lightColor,
-          //                 borderRadius: BorderRadius.circular(16)),
-          //             child: Column(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Container(
-          //                     decoration: BoxDecoration(
-          //                         border: Border.all(
-          //                             color: MyColors.black, width: 1),
-          //                         borderRadius: BorderRadius.circular(16)),
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(10.0),
-          //                       child:
-          //                           Image.asset("assets/icons/degrees.png"),
-          //                     )),
-          //                 const SizedBox(
-          //                   height: 4,
-          //                 ),
-          //                 const Text(
-          //                   "Degrees",
-          //                   style: TextStyle(
-          //                       color: MyColors.black,
-          //                       fontWeight: FontWeight.w500),
-          //                 )
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         const SizedBox(
-          //           height: 22,
-          //         ),
-          //         GestureDetector(
-          //           onTap: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (_) => const UniDetails()));
-          //           },
-          //           child: Container(
-          //             height: 180,
-          //             width: MediaQuery.of(context).size.width / 2.5,
-          //             decoration: BoxDecoration(
-          //                 color: MyColors.lightColor,
-          //                 borderRadius: BorderRadius.circular(16)),
-          //             child: Column(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Container(
-          //                     decoration: BoxDecoration(
-          //                         border: Border.all(
-          //                             color: MyColors.black, width: 1),
-          //                         borderRadius: BorderRadius.circular(16)),
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(10.0),
-          //                       child:
-          //                           Image.asset("assets/icons/programs.png"),
-          //                     )),
-          //                 const SizedBox(
-          //                   height: 4,
-          //                 ),
-          //                 const Text(
-          //                   "Programs",
-          //                   style: TextStyle(
-          //                       color: MyColors.black,
-          //                       fontWeight: FontWeight.w500),
-          //                 )
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         const SizedBox(
-          //           height: 22,
-          //         ),
-          //         GestureDetector(
-          //           onTap: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (_) => const Location()));
-          //           },
-          //           child: Container(
-          //             height: 180,
-          //             width: MediaQuery.of(context).size.width / 2.5,
-          //             decoration: BoxDecoration(
-          //                 color: MyColors.lightColor,
-          //                 borderRadius: BorderRadius.circular(16)),
-          //             child: Column(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Container(
-          //                     decoration: BoxDecoration(
-          //                         border: Border.all(
-          //                             color: MyColors.black, width: 1),
-          //                         borderRadius: BorderRadius.circular(16)),
-          //                     child: Padding(
-          //                       padding: const EdgeInsets.all(10.0),
-          //                       child: Image.asset(
-          //                           "assets/icons/scholarship.png"),
-          //                     )),
-          //                 const SizedBox(
-          //                   height: 4,
-          //                 ),
-          //                 const Text(
-          //                   "Scholarships",
-          //                   style: TextStyle(
-          //                       color: MyColors.black,
-          //                       fontWeight: FontWeight.w500),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );

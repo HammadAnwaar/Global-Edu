@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:global_edu/my_colors.dart';
+import 'package:global_edu/constants/my_colors.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/degrees/all_degrees.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/degrees/four_years.dart';
 import 'package:global_edu/user/views/main_pages/bottom_nav/home_pages/degrees/two_years.dart';
